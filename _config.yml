@@ -5,8 +5,3 @@ title: [Nginx C function]
 description: [Create your desired C application on top of nginx module]
 show_downloads: true
 
-
-github:
-	zip_url: [https://github.com/Taymindis/nginx-c-function/archive/master.zip]
-
-
