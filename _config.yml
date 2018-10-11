@@ -1,7 +1,6 @@
 theme: jekyll-theme-cayman
 
 
-```yml
 title: [Nginx C function]
 description: [Create your desired C application on top of nginx module]
-```
+
