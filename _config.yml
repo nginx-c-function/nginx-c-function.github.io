@@ -2,6 +2,6 @@ theme: jekyll-theme-cayman
 
 
 ```yml
-title: [The title of your site]
-description: [A short description of your site's purpose]
+title: [Nginx C function]
+description: [Create your desired C application on top of nginx module]
 ```
