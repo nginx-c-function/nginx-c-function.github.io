@@ -42,8 +42,8 @@
         top: 0px;
         right: 0px;
         
-        padding: 20px;
-        /*padding-left: 20px;*/
+        padding-top: 20px;
+        /*padding-right: 20px;*/
         overflow: auto;    
     }
     .unfixed_table_content {
@@ -58,10 +58,14 @@
         z-index: 1;
         top: 80px;
         right: 0px;
-        
-        padding: 20px;
+        padding-top: 20px;
+        /*padding-right: 20px;*/
         /*padding-left: 20px;*/
         overflow: auto;    
+    }
+
+    #menu_ul > li {
+      padding-top: 5px;
     }
     </style>
   </head>
@@ -75,7 +79,7 @@
 
 <div id="socketifytablecontent" class="unfixed_table_content">
   <div id="table-of-contents" style="padding-left: 20px;padding-top: 10px;padding-bottom: 10px;">Table of Contents</div>
-  <ul style="list-style: none;">
+  <ul id="menu_ul" style="list-style: none;">
    <li><a href="#introduction">Introduction</a></li>
 	  <li><a href="#how-it-works">How it works</a></li>
 	  <li><a href="#usage">Usage</a></li>
