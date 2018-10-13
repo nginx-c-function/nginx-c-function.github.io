@@ -29,68 +29,93 @@
     <![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <style>
-    .fixed_table_content {
-        border: 1px solid #aaaaaa;
-        border-radius: 7px;
-        /*background: #DDDDDD !important;*/
-        height: 80%;
-        width: 160px;
-        position: fixed;
-        margin-top: 80px;
-        margin-right: 20px;
-        z-index: 1;
-        top: 0px;
-        right: 0px;
-        
-        padding-top: 20px;
-        /*padding-right: 20px;*/
-        overflow: auto;    
-    }
-    .unfixed_table_content {
-        border: 1px solid #aaaaaa;
-        border-radius: 7px;
-        /*background: #DDDDDD !important;*/
-        height: 80%;
-        width: 160px;
-        position: absolute;
-        margin-top: 80px;
-        margin-right: 20px;
-        z-index: 1;
-        top: 80px;
-        right: 0px;
-        padding-top: 20px;
-        /*padding-right: 20px;*/
-        /*padding-left: 20px;*/
-        overflow: auto;    
+    @media all and (max-width: 480px) {
+      .fixed_table_content {
+          }
+            
+        .unfixed_table_content {
+        }
+
+        #mobile-table-of-contents {
+          display: block;
+        }
+
+        #menu_ul > li {
+          padding-top: 5px;
+        } 
     }
 
-    #menu_ul > li {
-      padding-top: 5px;
+    @media all and (min-width: 720px) {
+
+        #mobile-table-of-contents {
+          display: none;
+        }
+        .fixed_table_content {
+            border: 1px solid #aaaaaa;
+            border-radius: 7px;
+            /*background: #DDDDDD !important;*/
+            height: 80%;
+            width: 160px;
+            position: fixed;
+            margin-top: 80px;
+            margin-right: 20px;
+            z-index: 1;
+            top: 0px;
+            right: 0px;
+            
+            padding-top: 20px;
+            /*padding-right: 20px;*/
+            overflow: auto;    
+        }
+        .unfixed_table_content {
+            border: 1px solid #aaaaaa;
+            border-radius: 7px;
+            /*background: #DDDDDD !important;*/
+            height: 80%;
+            width: 160px;
+            position: absolute;
+            margin-top: 80px;
+            margin-right: 20px;
+            z-index: 1;
+            top: 80px;
+            right: 0px;
+            padding-top: 20px;
+            /*padding-right: 20px;*/
+            /*padding-left: 20px;*/
+            overflow: auto;    
+        }
+
+        #menu_ul > li {
+          padding-top: 5px;
+        }   
     }
     </style>
   </head>
   <body>
-      <div id="header">
-        <nav>
-          <li class="fork"><a href="https://github.com/Taymindis/nginx-c-function">View On GitHub</a></li>
-          <li class="fork" style="float:right;"><a href="https://github.com/Taymindis/nginx-c-function/archive/master.zip">Download Source</a></li>          
-        </nav>
-      </div><!-- end header -->
+    
+    <div id="header">
+      <nav>
+        <li class="fork"><a href="https://github.com/Taymindis/nginx-c-function">View On GitHub</a></li>
+        <li class="fork" style="float:right;"><a href="https://github.com/Taymindis/nginx-c-function/archive/master.zip">Download Source</a></li>          
+      </nav>
+    </div><!-- end header -->
 
-	<div id="socketifytablecontent" class="unfixed_table_content">
-	  <div id="table-of-contents" style="padding-left: 20px;padding-top: 10px;padding-bottom: 10px;">Table of Contents</div>
-	  <ul id="menu_ul" style="list-style: none;">
-	   <li><a href="#introduction">Introduction</a></li>
-		  <li><a href="#how-it-works">How it works</a></li>
-		  <li><a href="#usage">Usage</a></li>
-		  <li><a href="#installation">Installation</a></li>
-		  <li><a href="#sample-application-development">Sample Application Development</a></li>
-		  <li><a href="#test">Test</a></li>
-		  <li><a href="#wiki">Wiki</a></li>
-		  <li><a href="#support">Support</a></li>
-		  <li><a href="#copyright--license">Copyright &amp; License</a></li>
-	  </ul>
-	</div>
+
+  <div id="socketifytablecontent" class="unfixed_table_content">
+    <div id="table-of-contents" style="padding-left: 20px;padding-top: 10px;padding-bottom: 10px;">Table of Contents</div>
+    <ul id="menu_ul" style="list-style: none;">
+      <div id="mobile-table-of-contents" style="padding-left: 20px;padding-top: 10px;padding-bottom: 10px;">Table of Contents</div>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#how-it-works">How it works</a></li>
+      <li><a href="#usage">Usage</a></li>
+      <li><a href="#installation">Installation</a></li>
+      <li><a href="#sample-application-development">Sample Application Development</a></li>
+      <li><a href="#test">Test</a></li>
+      <li><a href="#wiki">Wiki</a></li>
+      <li><a href="#support">Support</a></li>
+      <li><a href="#copyright--license">Copyright &amp; License</a></li>
+    </ul>
+  </div>
 	
     <div class="wrapper">
       <section>
@@ -103,7 +128,6 @@
         </div>
 
         <h1 id="nginx-c-function">nginx-c-function</h1>
-
 		<p>It is a NGINX module that allow you to link your .so(c/c++) application in server context and call the function of .so application in location directive.</p>
 
 <!-- <h1 id="table-of-contents">Table of Contents</h1> -->
