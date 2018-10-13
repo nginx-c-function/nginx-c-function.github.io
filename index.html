@@ -46,7 +46,11 @@
 
         #menu_ul > li {
           padding-top: 5px;
-        } 
+        }
+
+        .downloadable {
+          display: none;
+        }
     }
 
     @media all and (min-width: 720px) {
@@ -65,7 +69,7 @@
             height: 80%;
             width: 160px;
             position: fixed;
-            margin-top: 80px;
+            margin-top: 30px;
             margin-right: 20px;
             z-index: 1;
             top: 0px;
@@ -85,7 +89,7 @@
             margin-top: 80px;
             margin-right: 20px;
             z-index: 1;
-            top: 80px;
+            top: 30px;
             right: 0px;
             padding-top: 20px;
             /*padding-right: 20px;*/
@@ -96,17 +100,21 @@
         #menu_ul > li {
           padding-top: 5px;
         }   
+        .downloadable {
+          display: block;
+        }
     }
     </style>
   </head>
   <body>
-    
+   <!--  
     <div id="header">
       <nav>
         <li class="fork"><a href="https://github.com/Taymindis/nginx-c-function">View On GitHub</a></li>
         <li class="fork" style="float:right;"><a href="https://github.com/Taymindis/nginx-c-function/archive/master.zip">Download Source</a></li>          
       </nav>
-    </div><!-- end header -->
+    </div> -->
+
 
 
   <div id="socketifytablecontent" class="unfixed_table_content">
@@ -120,6 +128,9 @@
       <li><a href="#sample-application-development">Sample Application Development</a></li>
       <li><a href="#test">Test</a></li>
       <li><a href="#wiki">Wiki</a></li>
+
+      <li><a href="https://github.com/Taymindis/nginx-c-function">View On GitHub</a></li>
+      <li class="downloadable"><a href="https://github.com/Taymindis/nginx-c-function/archive/master.zip">Download Source</a></li>
       <li><a href="#support">Support</a></li>
       <li><a href="#copyright--license">Copyright &amp; License</a></li>
     </ul>
@@ -154,7 +165,6 @@
   socketifytablecontent = document.getElementById("socketifytablecontent");
   window.addEventListener("scroll", scrollFunction, false);
   function scrollFunction() {
-      console.log("ASDASDAS" + socketifytablecontent.scrollTop );
       var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
      // document.getElementById("demo").innerHTML =  document.body.scrollTop || document.documentElement.scrollTop ;
         if (scrollTop >= 80) {
