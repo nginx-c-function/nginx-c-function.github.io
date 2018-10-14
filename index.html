@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>nginx-c-function | [“Nginx C function”]</title>
+<title>nginx-c-function</title>
 <meta name="generator" content="Jekyll v3.7.4" />
 <meta property="og:title" content="nginx-c-function" />
 <meta property="og:locale" content="en_US" />
@@ -135,7 +135,7 @@
       <li><a href="#copyright--license">Copyright &amp; License</a></li>
     </ul>
   </div>
-	
+  
     <div class="wrapper">
       <section>
         <div id="title">
@@ -147,7 +147,7 @@
         </div>
 
         <h1 id="nginx-c-function">nginx-c-function</h1>
-		<p>It is a NGINX module that allow you to link your .so(c/c++) application in server context and call the function of .so application in location directive.</p>
+    <p>It is a NGINX module that allow you to link your .so(c/c++) application in server context and call the function of .so application in location directive.</p>
 
 <!-- <h1 id="table-of-contents">Table of Contents</h1> -->
 
@@ -288,7 +288,7 @@ make <span class="nt">-j2</span>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>install <span class="nt">-m</span> 644 /path/to/nginx-c-function/src/ngx_http_c_func_module.h /usr/local/include/
 </code></pre></div></div>
 
-
+<p><a href="#title">Back to Top</a></p>
 
 <h1 id="interface-that-expose-to-client-application">Interface that expose to client application</h1>
 
@@ -301,48 +301,58 @@ make <span class="nt">-j2</span>
 #define ngx_http_c_func_content_type_jsonp "application/javascript"
 #define ngx_http_c_func_content_type_xformencoded "application/x-www-form-urlencoded"
 </span>
+
 <span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
   <span class="kt">char</span> <span class="o">*</span><span class="n">req_args</span><span class="p">;</span> <span class="c1">// Uri Args
 </span>  <span class="n">u_char</span> <span class="o">*</span><span class="n">req_body</span><span class="p">;</span> <span class="c1">// Request Body
-</span>
+</span>  <span class="kt">size_t</span> <span class="n">req_body_len</span><span class="p">;</span> <span class="c1">// length of body
+</span>  <span class="kt">void</span> <span class="o">*</span><span class="n">shared_mem</span><span class="p">;</span>
+
   <span class="cm">/* internal */</span>
   <span class="kt">void</span><span class="o">*</span> <span class="n">__r__</span><span class="p">;</span>
+  <span class="kt">void</span><span class="o">*</span> <span class="n">__pl__</span><span class="p">;</span>
   <span class="kt">void</span><span class="o">*</span> <span class="n">__log__</span><span class="p">;</span>
-  <span class="kt">intptr_t</span> <span class="n">__rc__</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">ngx_http_c_func_ctx_t</span><span class="p">;</span>
 
 <span class="k">extern</span> <span class="kt">void</span> <span class="n">ngx_http_c_func_log_debug</span><span class="p">(</span><span class="n">ngx_http_c_func_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">msg</span><span class="p">);</span>
 <span class="k">extern</span> <span class="kt">void</span> <span class="n">ngx_http_c_func_log_info</span><span class="p">(</span><span class="n">ngx_http_c_func_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">msg</span><span class="p">);</span>
 <span class="k">extern</span> <span class="kt">void</span> <span class="n">ngx_http_c_func_log_warn</span><span class="p">(</span><span class="n">ngx_http_c_func_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">msg</span><span class="p">);</span>
 <span class="k">extern</span> <span class="kt">void</span> <span class="n">ngx_http_c_func_log_err</span><span class="p">(</span><span class="n">ngx_http_c_func_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">msg</span><span class="p">);</span>
+
 <span class="k">extern</span> <span class="n">u_char</span><span class="o">*</span> <span class="n">ngx_http_c_func_get_header</span><span class="p">(</span><span class="n">ngx_http_c_func_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="n">key</span><span class="p">);</span>
 <span class="k">extern</span> <span class="kt">void</span><span class="o">*</span> <span class="n">ngx_http_c_func_get_query_param</span><span class="p">(</span><span class="n">ngx_http_c_func_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">key</span><span class="p">);</span>
 <span class="k">extern</span> <span class="kt">void</span><span class="o">*</span> <span class="n">ngx_http_c_func_palloc</span><span class="p">(</span><span class="n">ngx_http_c_func_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span>
 <span class="k">extern</span> <span class="kt">void</span><span class="o">*</span> <span class="n">ngx_http_c_func_pcalloc</span><span class="p">(</span><span class="n">ngx_http_c_func_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span>
+
+<span class="k">extern</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ngx_http_c_func_strdup</span><span class="p">(</span><span class="n">ngx_http_c_func_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">src</span><span class="p">);</span>
 
 <span class="k">extern</span> <span class="kt">void</span> <span class="n">ngx_http_c_func_write_resp</span><span class="p">(</span>
     <span class="n">ngx_http_c_func_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span>
     <span class="kt">uintptr_t</span> <span class="n">status_code</span><span class="p">,</span>
     <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">status_line</span><span class="p">,</span>
     <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">content_type</span><span class="p">,</span>
-    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">resp_content</span>
+    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">resp_content</span><span class="p">,</span>
+    <span class="kt">size_t</span> <span class="n">resp_len</span>
 <span class="p">);</span>
 
 <span class="c1">// Shared Memory and Cache Scope
-</span><span class="k">extern</span> <span class="kt">void</span> <span class="n">ngx_http_c_func_shmtx_lock</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">shared_mem</span><span class="p">);</span>
+</span><span class="k">extern</span> <span class="kt">uintptr_t</span> <span class="n">ngx_http_c_func_shmtx_trylock</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">shared_mem</span><span class="p">);</span>
+<span class="k">extern</span> <span class="kt">void</span> <span class="n">ngx_http_c_func_shmtx_lock</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">shared_mem</span><span class="p">);</span>
 <span class="k">extern</span> <span class="kt">void</span> <span class="n">ngx_http_c_func_shmtx_unlock</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">shared_mem</span><span class="p">);</span>
 <span class="k">extern</span> <span class="kt">void</span><span class="o">*</span> <span class="n">ngx_http_c_func_shm_alloc</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">shared_mem</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span>
 <span class="k">extern</span> <span class="kt">void</span> <span class="n">ngx_http_c_func_shm_free</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">shared_mem</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">);</span>
+<span class="k">extern</span> <span class="kt">void</span><span class="o">*</span> <span class="n">ngx_http_c_func_shm_alloc_locked</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">shared_mem</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span>
+<span class="k">extern</span> <span class="kt">void</span> <span class="n">ngx_http_c_func_shm_free_locked</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">shared_mem</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">);</span>
 <span class="k">extern</span> <span class="kt">void</span><span class="o">*</span> <span class="n">ngx_http_c_func_cache_get</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">shared_mem</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">key</span><span class="p">);</span>
 <span class="k">extern</span> <span class="kt">void</span><span class="o">*</span> <span class="n">ngx_http_c_func_cache_put</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">shared_mem</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">key</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">value</span><span class="p">);</span>
 <span class="k">extern</span> <span class="kt">void</span><span class="o">*</span> <span class="n">ngx_http_c_func_cache_new</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">shared_mem</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">key</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span>
-<span class="k">extern</span> <span class="kt">void</span> <span class="n">ngx_http_c_func_cache_remove</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">shared_mem</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">key</span><span class="p">);</span>
+<span class="k">extern</span> <span class="kt">void</span><span class="o">*</span> <span class="n">ngx_http_c_func_cache_remove</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">shared_mem</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">key</span><span class="p">);</span>
 
 </code></pre></div></div>
 
 <h2 id="interface-break-down-details">Interface break down details</h2>
 
-<h4 id="malloccalloc-from-nginx-pool">malloc/calloc from nginx pool</h4>
+<h4 id="malloccalloc-from-nginx-pool-this-pool-will-be-freed-once-finished-request-please-do-not-to-free-by-yourself">malloc/calloc from nginx pool, this pool will be freed once finished request, please do not to free by yourself</h4>
 <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span><span class="o">*</span> <span class="n">ngx_http_c_func_palloc</span><span class="p">(</span><span class="n">ngx_http_c_func_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span>
 <span class="kt">void</span><span class="o">*</span> <span class="n">ngx_http_c_func_pcalloc</span><span class="p">(</span><span class="n">ngx_http_c_func_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span>
 </code></pre></div></div>
@@ -361,6 +371,7 @@ make <span class="nt">-j2</span>
 
 <h4 id="get-the-request-body">get the request body</h4>
 <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">req_body</span><span class="p">;</span>
+<span class="n">ctx</span><span class="o">-&gt;</span><span class="n">req_body_len</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="loggin-to-nginx-server">loggin to nginx server</h4>
@@ -377,7 +388,8 @@ make <span class="nt">-j2</span>
 </span>    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">status_line</span><span class="p">,</span> <span class="c1">// Status line
 </span>    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">content_type</span><span class="p">,</span> <span class="c1">// Response content type
 </span>    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">resp_content</span> <span class="c1">// Response content
-</span><span class="p">);</span>
+</span>    <span class="kt">size_t</span> <span class="n">resp_len</span>
+<span class="p">);</span>
 </code></pre></div></div>
 
 <h1 id="sample-application-development">Sample Application Development</h1>
@@ -410,7 +422,8 @@ make <span class="nt">-j2</span>
         <span class="mi">200</span><span class="p">,</span>
         <span class="s">"200 OK"</span><span class="p">,</span>
         <span class="s">"text/plain"</span><span class="p">,</span>
-        <span class="s">"greeting from ngx_http_c_func testing"</span>
+        <span class="s">"greeting from ngx_http_c_func testing"</span><span class="p">,</span>
+        <span class="k">sizeof</span><span class="p">(</span><span class="s">"greeting from ngx_http_c_func testing"</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
     <span class="p">);</span>
 <span class="p">}</span>
 
@@ -422,7 +435,8 @@ make <span class="nt">-j2</span>
         <span class="mi">200</span><span class="p">,</span>
         <span class="s">"200 OK"</span><span class="p">,</span>
         <span class="s">"text/plain"</span><span class="p">,</span>
-        <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">req_args</span>
+        <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">req_args</span><span class="p">,</span>
+        <span class="n">strlen</span><span class="p">(</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">req_args</span><span class="p">)</span>
     <span class="p">);</span>
 <span class="p">}</span>
 
@@ -436,7 +450,8 @@ make <span class="nt">-j2</span>
             <span class="mi">401</span><span class="p">,</span>
             <span class="s">"401 unauthorized"</span><span class="p">,</span>
             <span class="s">"text/plain"</span><span class="p">,</span>
-            <span class="s">"Token Not Found"</span>
+            <span class="s">"Token Not Found"</span><span class="p">,</span>
+            <span class="k">sizeof</span><span class="p">(</span><span class="s">"Token Not Found"</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
         <span class="p">);</span>
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
         <span class="n">ngx_http_c_func_write_resp</span><span class="p">(</span>
@@ -444,7 +459,8 @@ make <span class="nt">-j2</span>
             <span class="mi">401</span><span class="p">,</span>
             <span class="s">"401 unauthorized"</span><span class="p">,</span>
             <span class="s">"text/plain"</span><span class="p">,</span>
-            <span class="n">tokenArgs</span>
+            <span class="n">tokenArgs</span><span class="p">,</span>
+            <span class="n">strlen</span><span class="p">(</span><span class="n">tokenArgs</span><span class="p">)</span>
         <span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -452,12 +468,14 @@ make <span class="nt">-j2</span>
 <span class="kt">void</span> <span class="nf">my_app_simple_post</span><span class="p">(</span><span class="n">ngx_http_c_func_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">ngx_http_c_func_log_info</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">"Calling back and log from my_app_simple_post"</span><span class="p">);</span>
 
-    <span class="n">ngx_http_c_func_write_resp</span><span class="p">(</span>
+    <span class="c1">// echo back
+</span>    <span class="n">ngx_http_c_func_write_resp</span><span class="p">(</span>
         <span class="n">ctx</span><span class="p">,</span>
         <span class="mi">202</span><span class="p">,</span>
         <span class="s">"202 Accepted and Processing"</span><span class="p">,</span>
         <span class="s">"text/plain"</span><span class="p">,</span>
-        <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">req_body</span>
+        <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">req_body</span><span class="p">,</span>
+        <span class="n">ctx</span><span class="o">-&gt;</span><span class="n">req_body_len</span>
     <span class="p">);</span>
 <span class="p">}</span>
 
@@ -513,18 +531,17 @@ make <span class="nt">-j2</span>
 <span class="nb">sudo </span>prove <span class="nt">-r</span> t/
 </code></pre></div></div>
 
-
+<p><a href="#title">Back to Top</a></p>
 
 <h1 id="wiki">Wiki</h1>
 
 <p>Browse <a href="https://github.com/Taymindis/nginx-c-function/wiki">Wiki</a> for more details </p>
 
-
 <h1 id="support">Support</h1>
 
 <p>Please do not hesitate to contact minikawoon2017@gmail.com/minikawoon99@gmail.com for any queries.</p>
 
-
+<p><a href="#title">Back to Top</a></p>
 
 <h1 id="copyright--license">Copyright &amp; License</h1>
 
@@ -556,7 +573,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
 
-
+<p><a href="#title">Back to Top</a></p>
 
 
       </section>
