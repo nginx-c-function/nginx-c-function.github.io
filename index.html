@@ -9,13 +9,13 @@
 <meta name="generator" content="Jekyll v3.7.4" />
 <meta property="og:title" content="nginx-link-function" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="[“Create your desired C application on top of nginx module”]" />
-<meta property="og:description" content="[“Create your desired C application on top of nginx module”]" />
+<meta name="description" content="[“Create your dynamic linkable application on top of nginx module”]" />
+<meta property="og:description" content="[“Create your dynamic linkable application on top application on top of nginx module”]" />
 <link rel="canonical" href="http://0.0.0.0:4000/" />
 <meta property="og:url" content="http://0.0.0.0:4000/" />
 <meta property="og:site_name" content="[“Nginx link function”]" />
 <script type="application/ld+json">
-{"headline":"nginx-link-function","@type":"WebSite","url":"http://0.0.0.0:4000/","name":"[“Nginx link function”]","description":"[“Create your desired C application on top of nginx module”]","@context":"http://schema.org"}</script>
+{"headline":"nginx-link-function","@type":"WebSite","url":"http://0.0.0.0:4000/","name":"[“Nginx link function”]","description":"[“Create your dynamic linkable application on top of nginx module”]","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <link rel="stylesheet" href="/assets/css/style.css?v=91d333111139eaf711893d2ebc955f518a9aaf0b">
@@ -197,10 +197,10 @@
 <span class="k">server</span> <span class="p">{</span>
   <span class="kn">listen</span> <span class="mi">8888</span><span class="p">;</span>
   <span class="kn">...</span>
-  <span class="s">ngx_link_func_link_lib</span> <span class="s">"/path/to/your/libcfuntest.so"</span><span class="p">;</span>
+  <span class="s">ngx_link_func_lib</span> <span class="s">"/path/to/your/liblinkfuntest.so"</span><span class="p">;</span>
   <span class="kn">...</span>
   <span class="s">...</span>
-  <span class="s">location</span> <span class="p">=</span> <span class="n">/testCFunGreeting</span> <span class="p">{</span>
+  <span class="s">location</span> <span class="p">=</span> <span class="n">/testLinkFunGreeting</span> <span class="p">{</span>
       <span class="c1"># if not variable specified, direct write response out
 </span>      <span class="kn">ngx_link_func_call</span> <span class="s">"my_app_simple_get_greeting"</span><span class="p">;</span> 
   <span class="p">}</span>
@@ -210,10 +210,10 @@
   <span class="kn">listen</span> <span class="mi">8989</span><span class="p">;</span>
   <span class="kn">aio</span> <span class="s">threads</span><span class="p">;</span>
   <span class="kn">...</span>
-  <span class="s">ngx_link_func_link_lib</span> <span class="s">"/path/to/your/libcfuntest.so"</span><span class="p">;</span> <span class="c1"># sharing data memory with server 1 if the path are same with server 1
+  <span class="s">ngx_link_func_lib</span> <span class="s">"/path/to/your/liblinkfuntest.so"</span><span class="p">;</span> <span class="c1"># sharing data memory with server 1 if the path are same with server 1
 </span>  <span class="kn">...</span>
   <span class="s">...</span>
-  <span class="s">location</span> <span class="p">=</span> <span class="n">/testCFunGreeting</span> <span class="p">{</span>
+  <span class="s">location</span> <span class="p">=</span> <span class="n">/testLinkFunGreeting</span> <span class="p">{</span>
       <span class="c1"># if variable specified, not response write out, but it stored into myResponseVariable
 </span>      <span class="kn">ngx_link_func_call</span> <span class="s">"my_app_simple_get_greeting"</span> <span class="s">respTo=myResponseVariable</span><span class="p">;</span>
 
@@ -225,7 +225,7 @@
   <span class="kn">listen</span> <span class="mi">8999</span><span class="p">;</span>
   <span class="kn">aio</span> <span class="s">threads</span><span class="p">;</span>
   <span class="kn">...</span>
-  <span class="s">ngx_link_func_link_lib</span> <span class="s">"/path/to/your/libcfuntest2.so"</span><span class="p">;</span> <span class="c1"># another application
+  <span class="s">ngx_link_func_lib</span> <span class="s">"/path/to/your/liblinkfuntest2.so"</span><span class="p">;</span> <span class="c1"># another application
 </span>  <span class="kn">...</span>
   <span class="s">...</span>
   <span class="s">location</span> <span class="p">=</span> <span class="n">/testPost</span> <span class="p">{</span>
@@ -242,7 +242,7 @@
   <span class="kn">aio</span> <span class="s">threads</span><span class="p">;</span>
   <span class="kn">...</span>
   <span class="c1">## Download application from cloud repo e.g. ngx_link_func_download_and_link_lib &lt;download_link&gt; &lt;dest_link_file&gt;
-</span>  <span class="s">ngx_link_func_download_and_link_lib</span> <span class="s">"http://abc.com/repos/libcfuntest.so"</span> <span class="s">"/etc/nginx/libcfuntest3.so"</span>
+</span>  <span class="s">ngx_link_func_download_and_link_lib</span> <span class="s">"http://abc.com/repos/liblinkfuntest.so"</span> <span class="s">"/etc/nginx/liblinkfuntest3.so"</span>
   <span class="s">...</span>
   <span class="s">...</span>
   <span class="s">location</span> <span class="p">=</span> <span class="n">/testPost</span> <span class="p">{</span>
@@ -259,7 +259,7 @@
   <span class="kn">aio</span> <span class="s">threads</span><span class="p">;</span>
   <span class="kn">...</span>
   <span class="c1">## Download application from cloud repo with extra header e.g. ngx_link_func_download_and_link_lib &lt;download_link&gt; &lt;headers&gt; &lt;dest_link_file&gt;
-</span>  <span class="s">ngx_link_func_download_and_link_lib</span> <span class="s">"https://abc.com/repos/libcfuntest.so"</span> <span class="s">"Accept-Language:en_US</span><span class="err">\</span><span class="s">r</span><span class="err">\</span><span class="s">nAuthorization:Bearer</span> <span class="s">KA.eyJ2ZXJzaadlasdlaldhjHJ2h3ldjklsjaklcjkljasdklcmasaskdaJxdkL3ftjM</span><span class="err">\</span><span class="s">r</span><span class="err">\</span><span class="s">n"</span> <span class="s">"/etc/nginx/libcfuntest4.so"</span>
+</span>  <span class="s">ngx_link_func_download_and_link_lib</span> <span class="s">"https://abc.com/repos/liblinkfuntest.so"</span> <span class="s">"Accept-Language:en_US</span><span class="err">\</span><span class="s">r</span><span class="err">\</span><span class="s">nAuthorization:Bearer</span> <span class="s">KA.eyJ2ZXJzaadlasdlaldhjHJ2h3ldjklsjaklcjkljasdklcmasaskdaJxdkL3ftjM</span><span class="err">\</span><span class="s">r</span><span class="err">\</span><span class="s">n"</span> <span class="s">"/etc/nginx/liblinkfuntest4.so"</span>
   <span class="s">...</span>
   <span class="s">...</span>
   <span class="s">location</span> <span class="p">=</span> <span class="n">/testPost</span> <span class="p">{</span>
@@ -404,8 +404,8 @@ make <span class="nt">-j2</span>
 #include &lt;ngx_link_func_module.h&gt;
 </span>
 <span class="cm">/*** build the program as .so library and copy to the preferred place for nginx to link this library ***/</span>
-<span class="cm">/*** gcc -shared -o libcfuntest.so -fPIC cfuntest.c ***/</span>
-<span class="cm">/*** cp libcfuntest.so /etc/nginx/ ***/</span>
+<span class="cm">/*** gcc -shared -o liblinkfuntest.so -fPIC linkfuntest.c ***/</span>
+<span class="cm">/*** cp liblinkfuntest.so /etc/nginx/ ***/</span>
 
 <span class="kt">int</span> <span class="n">is_service_on</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
@@ -517,12 +517,12 @@ make <span class="nt">-j2</span>
 
 <h3 id="provide-ca-cert-to-download-your-appso-please-embedded-this-in-your-nginxconfs-server-context">provide ca-cert to download your app(.so)?? please embedded this in your nginx.conf’s server context.</h3>
 <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ngx_link_func_ca_cert</span> <span class="s">"/etc/ssl/certs/ca-cert.crt"</span>
-<span class="n">ngx_link_func_download_and_link_lib</span> <span class="s">"https://abc.com/repos/libcfuntest.so"</span> <span class="s">"/etc/nginx/libcfuntest4.so"</span>
+<span class="n">ngx_link_func_download_and_link_lib</span> <span class="s">"https://abc.com/repos/liblinkfuntest.so"</span> <span class="s">"/etc/nginx/liblinkfuntest4.so"</span>
 </code></pre></div></div>
 
 <h3 id="provide-ca-cert-and-extra-header-to-download-your-appso-please-embedded-this-in-your-nginxconfs-server-context">provide ca-cert and extra header to download your app(.so)?? please embedded this in your nginx.conf’s server context.</h3>
 <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ngx_link_func_ca_cert</span> <span class="s">"/etc/ssl/certs/ca-cert.crt"</span>
-<span class="n">ngx_link_func_download_and_link_lib</span> <span class="s">"https://abc.com/repos/libcfuntest.so"</span> <span class="s">"Accept-Language:en_US</span><span class="se">\r\n</span><span class="s">Authorization:Bearer KA.eyJ2ZXJzaadlasdlaldhjHJ2h3ldjklsjaklcjkljasdklcmasaskdaJxdkL3ftjM</span><span class="se">\r\n</span><span class="s">"</span> <span class="s">"/etc/nginx/libcfuntest4.so"</span>
+<span class="n">ngx_link_func_download_and_link_lib</span> <span class="s">"https://abc.com/repos/liblinkfuntest.so"</span> <span class="s">"Accept-Language:en_US</span><span class="se">\r\n</span><span class="s">Authorization:Bearer KA.eyJ2ZXJzaadlasdlaldhjHJ2h3ldjklsjaklcjkljasdklcmasaskdaJxdkL3ftjM</span><span class="se">\r\n</span><span class="s">"</span> <span class="s">"/etc/nginx/liblinkfuntest4.so"</span>
 
 </code></pre></div></div>
 
