@@ -1,7 +1,7 @@
 theme: jekyll-theme-midnight
 
 
-title: [Nginx C function]
-description: [Create your desired C application on top of nginx module]
+title: [Nginx Link function]
+description: [Nginx Dynamic Linking Module]
 host: 0.0.0.0
 show_downloads: true
